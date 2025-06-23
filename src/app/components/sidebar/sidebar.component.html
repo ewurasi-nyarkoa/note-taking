@@ -1,1 +1,19 @@
-<p>sidebar works!</p>
+<nav class="sidebar">
+  <div class="nav-links">
+    <a routerLink="/notes" routerLinkActive="active">All Notes</a>
+    <a routerLink="/archived" routerLinkActive="active">Archived</a>
+    <a routerLink="/create" class="create-btn">+ New Note</a>
+  </div>
+  
+  <div class="tags-section">
+    <h4>Filter by Tags</h4>
+    <button (click)="clearFilter()" class="tag-filter">All</button>
+    @for (tag of tags; track tag) {
+      <button 
+        (click)="selectTag(tag)" 
+        class="tag-filter">
+        {{ tag }}
+      </button>
+    }
+  </div>
+</nav>
