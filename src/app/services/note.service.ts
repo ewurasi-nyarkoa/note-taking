@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Note } from '../models/note.interface';
+import { Note, DatabaseNote } from '../models/note.interface';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
-  private notes: Note[] = [];
-  private notesSubject = new BehaviorSubject<Note[]>([]);
+  private notes: DatabaseNote[] = [];
+  private notesSubject = new BehaviorSubject<DatabaseNote[]>([]);
 
-  constructor() { }
+  constructor(private supabaseService: SupabaseService) {
+    this.loadNotes();
+  }
+
+  private async loadNotes() {
+    try {
+      this.notes = await this.supabaseService.getNotes();
+      this.notesSubject.next([...this.notes]);
+    } catch (error) {
+      console.error('Error loading notes:', error);
+    }
+  }
 
   getNotes(): Observable<Note[]> {
     return this.notesSubject.asObservable();
