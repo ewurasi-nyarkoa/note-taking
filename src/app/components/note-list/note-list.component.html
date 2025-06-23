@@ -1,1 +1,32 @@
-<p>note-list works!</p>
+<div class="notes-grid">
+  @for (note of notes; track note.id) {
+    <div class="note-card">
+      <div class="note-header">
+        <h3 [routerLink]="['/notes', note.id]" class="note-title">{{ note.title }}</h3>
+        <div class="note-actions">
+          <button (click)="toggleArchive(note)" class="archive-btn">
+            {{ note.isArchived ? 'Unarchive' : 'Archive' }}
+          </button>
+          <button (click)="deleteNote(note)" class="delete-btn">Delete</button>
+        </div>
+      </div>
+      
+      <p class="note-content">{{ truncateContent(note.content) }}</p>
+      
+      <div class="note-footer">
+        <div class="tags">
+          @for (tag of note.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+        <span class="date">{{ note.updatedAt | date:'short' }}</span>
+      </div>
+    </div>
+  }
+</div>
+
+@if (notes.length === 0) {
+  <div class="empty-state">
+    <p>No notes found</p>
+  </div>
+}

@@ -1,1 +1,22 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+  <app-sidebar 
+    [tags]="allTags" 
+    (tagSelected)="onTagFilter($event)">
+  </app-sidebar>
+  
+  <main class="main-content">
+    <div class="search-bar">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="onSearch()" 
+        placeholder="Search notes by title, content, or tag..."
+        class="search-input">
+    </div>
+    
+    <app-note-list 
+      [notes]="filteredNotes"
+      [showArchived]="false">
+    </app-note-list>
+  </main>
+</div>
