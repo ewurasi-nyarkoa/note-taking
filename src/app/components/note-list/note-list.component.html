@@ -5,7 +5,7 @@
         <h3 [routerLink]="['/notes', note.id]" class="note-title">{{ note.title }}</h3>
         <div class="note-actions">
           <button (click)="toggleArchive(note)" class="archive-btn">
-            {{ note.isArchived ? 'Unarchive' : 'Archive' }}
+            {{ note.is_archived ? 'Unarchive' : 'Archive' }}
           </button>
           <button (click)="deleteNote(note)" class="delete-btn">Delete</button>
         </div>
@@ -19,7 +19,7 @@
             <span class="tag">{{ tag }}</span>
           }
         </div>
-        <span class="date">{{ note.updatedAt | date:'short' }}</span>
+        <span class="date">{{ note.updated_at | date:'short' }}</span>
       </div>
     </div>
   }

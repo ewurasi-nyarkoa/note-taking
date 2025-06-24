@@ -7,7 +7,6 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class NoteService {
-  private notes: DatabaseNote[] = [];
   private notesSubject = new BehaviorSubject<DatabaseNote[]>([]);
 
   constructor(private supabaseService: SupabaseService) {
@@ -16,74 +15,66 @@ export class NoteService {
 
   private async loadNotes() {
     try {
-      this.notes = await this.supabaseService.getNotes();
-      this.notesSubject.next([...this.notes]);
+      const notes = await this.supabaseService.getNotes();
+      this.notesSubject.next(notes);
     } catch (error) {
       console.error('Error loading notes:', error);
     }
   }
 
-  getNotes(): Observable<Note[]> {
+  getNotes(): Observable<DatabaseNote[]> {
     return this.notesSubject.asObservable();
   }
 
-  createNote(title: string, content: string, tags: string[] = []): Note {
+  async createNote(title: string, content: string, tags: string[] = []): Promise<DatabaseNote> {
     const note: Note = {
-      id: Date.now(),
       title,
       content,
       tags,
-      isArchived: false,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      is_archived: false
     };
-    this.notes.push(note);
-    this.notesSubject.next([...this.notes]);
-    return note;
-  }
-
-  updateNote(id: number, updates: Partial<Note>): Note | null {
-    const index = this.notes.findIndex(note => note.id === id);
-    if (index === -1) return null;
     
-    this.notes[index] = { ...this.notes[index], ...updates, updatedAt: new Date() };
-    this.notesSubject.next([...this.notes]);
-    return this.notes[index];
+    const createdNote = await this.supabaseService.createNote(note);
+    this.loadNotes(); // Refresh the list
+    return createdNote;
   }
 
-  deleteNote(id: number): boolean {
-    const index = this.notes.findIndex(note => note.id === id);
-    if (index === -1) return false;
-    
-    this.notes.splice(index, 1);
-    this.notesSubject.next([...this.notes]);
-    return true;
+  async updateNote(id: number, updates: Partial<Note>): Promise<DatabaseNote> {
+    const updatedNote = await this.supabaseService.updateNote(id, updates);
+    this.loadNotes(); // Refresh the list
+    return updatedNote;
   }
 
-  archiveNote(id: number): boolean {
-    return !!this.updateNote(id, { isArchived: true });
+  async deleteNote(id: number): Promise<void> {
+    await this.supabaseService.deleteNote(id);
+    this.loadNotes(); // Refresh the list
   }
 
-  searchNotes(query: string): Note[] {
-    if (!query) return this.notes;
+  async archiveNote(id: number): Promise<DatabaseNote> {
+    return this.updateNote(id, { is_archived: true });
+  }
+
+  searchNotes(query: string): DatabaseNote[] {
+    const currentNotes = this.notesSubject.value;
+    if (!query) return currentNotes;
     
     const lowerQuery = query.toLowerCase();
-    return this.notes.filter(note => 
+    return currentNotes.filter(note => 
       note.title.toLowerCase().includes(lowerQuery) ||
       note.content.toLowerCase().includes(lowerQuery) ||
       note.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
     );
   }
 
-  filterByTag(tag: string): Note[] {
-    return this.notes.filter(note => note.tags.includes(tag));
+  filterByTag(tag: string): DatabaseNote[] {
+    return this.notesSubject.value.filter(note => note.tags.includes(tag));
   }
 
-  getArchivedNotes(): Note[] {
-    return this.notes.filter(note => note.isArchived);
+  getArchivedNotes(): DatabaseNote[] {
+    return this.notesSubject.value.filter(note => note.is_archived);
   }
 
-  getActiveNotes(): Note[] {
-    return this.notes.filter(note => !note.isArchived);
+  getActiveNotes(): DatabaseNote[] {
+    return this.notesSubject.value.filter(note => !note.is_archived);
   }
 }

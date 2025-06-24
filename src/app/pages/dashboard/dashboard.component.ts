@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NoteService } from '../../services/note.service';
-import { Note } from '../../models/note.interface';
+import { DatabaseNote } from '../../models/note.interface';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { NoteListComponent } from '../../components/note-list/note-list.component';
 
@@ -13,8 +13,8 @@ import { NoteListComponent } from '../../components/note-list/note-list.componen
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  notes: Note[] = [];
-  filteredNotes: Note[] = [];
+  notes: DatabaseNote[] = [];
+  filteredNotes: DatabaseNote[] = [];
   searchQuery = '';
   selectedTag = '';
   allTags: string[] = [];
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.noteService.getNotes().subscribe(notes => {
-      this.notes = notes.filter(note => !note.isArchived);
+      this.notes = notes.filter(note => !note.is_archived);
       this.updateFilteredNotes();
       this.updateTags();
     });
@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
     let result = this.notes;
     
     if (this.searchQuery) {
-      result = this.noteService.searchNotes(this.searchQuery).filter(note => !note.isArchived);
+      result = this.noteService.searchNotes(this.searchQuery).filter(note => !note.is_archived);
     }
     
     if (this.selectedTag) {
