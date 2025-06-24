@@ -4,6 +4,7 @@ export interface Note {
   content: string;
   tags: string[];
   is_archived: boolean;
+  user_id?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -14,6 +15,7 @@ export interface DatabaseNote {
   content: string;
   tags: string[];
   is_archived: boolean;
+  user_id: string;
   created_at: string;
   updated_at: string;
 }

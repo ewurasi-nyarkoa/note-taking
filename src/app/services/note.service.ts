@@ -10,12 +10,15 @@ export class NoteService {
   private notesSubject = new BehaviorSubject<DatabaseNote[]>([]);
 
   constructor(private supabaseService: SupabaseService) {
+    this.supabaseService.testConnection();
     this.loadNotes();
   }
 
   private async loadNotes() {
     try {
+      console.log('Loading notes...');
       const notes = await this.supabaseService.getNotes();
+      console.log('Notes loaded in service:', notes);
       this.notesSubject.next(notes);
     } catch (error) {
       console.error('Error loading notes:', error);
@@ -35,19 +38,19 @@ export class NoteService {
     };
     
     const createdNote = await this.supabaseService.createNote(note);
-    this.loadNotes(); // Refresh the list
+    this.loadNotes(); 
     return createdNote;
   }
 
   async updateNote(id: number, updates: Partial<Note>): Promise<DatabaseNote> {
     const updatedNote = await this.supabaseService.updateNote(id, updates);
-    this.loadNotes(); // Refresh the list
+    this.loadNotes(); 
     return updatedNote;
   }
 
   async deleteNote(id: number): Promise<void> {
     await this.supabaseService.deleteNote(id);
-    this.loadNotes(); // Refresh the list
+    this.loadNotes();
   }
 
   async archiveNote(id: number): Promise<DatabaseNote> {

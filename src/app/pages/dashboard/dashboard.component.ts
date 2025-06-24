@@ -22,8 +22,11 @@ export class DashboardComponent implements OnInit {
   constructor(private noteService: NoteService) {}
 
   ngOnInit() {
+    console.log('Dashboard initializing...');
     this.noteService.getNotes().subscribe(notes => {
+      console.log('Dashboard received notes:', notes);
       this.notes = notes.filter(note => !note.is_archived);
+      console.log('Active notes:', this.notes);
       this.updateFilteredNotes();
       this.updateTags();
     });

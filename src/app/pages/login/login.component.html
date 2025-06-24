@@ -1,0 +1,41 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>{{ isSignUp ? 'Sign Up' : 'Sign In' }}</h2>
+    
+    <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+      <div class="form-group">
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email"
+          placeholder="Email"
+          required>
+      </div>
+      
+      <div class="form-group">
+        <input 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password"
+          placeholder="Password"
+          required>
+      </div>
+      
+      <button 
+        type="submit" 
+        [disabled]="loading || !authForm.valid"
+        class="auth-btn">
+        {{ loading ? 'Loading...' : (isSignUp ? 'Sign Up' : 'Sign In') }}
+      </button>
+    </form>
+    
+    <div class="error" *ngIf="error">{{ error }}</div>
+    
+    <p class="toggle-text">
+      {{ isSignUp ? 'Already have an account?' : "Don't have an account?" }}
+      <button type="button" (click)="toggleMode()" class="toggle-btn">
+        {{ isSignUp ? 'Sign In' : 'Sign Up' }}
+      </button>
+    </p>
+  </div>
+</div>
