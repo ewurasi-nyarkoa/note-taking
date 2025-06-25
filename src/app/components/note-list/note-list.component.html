@@ -4,6 +4,7 @@
       <div class="note-header">
         <h3 [routerLink]="['/notes', note.id]" class="note-title">{{ note.title }}</h3>
         <div class="note-actions">
+          <button [routerLink]="['/edit', note.id]" class="edit-btn">Edit</button>
           <button (click)="toggleArchive(note)" class="archive-btn">
             {{ note.is_archived ? 'Unarchive' : 'Archive' }}
           </button>

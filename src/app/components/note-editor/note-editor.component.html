@@ -1,1 +1,43 @@
-<p>note-editor works!</p>
+<div class="note-editor" *ngIf="!isLoading">
+  <div class="editor-header">
+    <h1>{{ isEditing ? 'Edit Note' : 'Create Note' }}</h1>
+    <div class="actions">
+      <button (click)="cancel()" class="btn-secondary">Cancel</button>
+      <button (click)="save()" class="btn-primary" [disabled]="!title.trim()">Save</button>
+    </div>
+  </div>
+
+  <div class="editor-form">
+    <input 
+      [(ngModel)]="title" 
+      placeholder="Note title..." 
+      class="title-input">
+    
+    <div class="tags-section">
+      <div class="tag-input">
+        <input 
+          [(ngModel)]="tagInput" 
+          (keyup.enter)="addTag()" 
+          placeholder="Add tag..." 
+          class="tag-field">
+        <button (click)="addTag()" class="add-tag-btn">Add</button>
+      </div>
+      <div class="tags-list">
+        <span *ngFor="let tag of tags" class="tag">
+          {{ tag }}
+          <button (click)="removeTag(tag)" class="remove-tag">×</button>
+        </span>
+      </div>
+    </div>
+    
+    <textarea 
+      [(ngModel)]="content" 
+      placeholder="Write your note here..." 
+      class="content-textarea">
+    </textarea>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="loading">
+  Loading...
+</div>
