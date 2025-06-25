@@ -17,10 +17,18 @@ export class NoteListComponent {
   constructor(private noteService: NoteService) {}
 
   async toggleArchive(note: DatabaseNote) {
-    if (note.is_archived) {
-      await this.noteService.updateNote(note.id, { is_archived: false });
-    } else {
-      await this.noteService.archiveNote(note.id);
+    console.log('Toggling archive for note:', note.id, 'Current state:', note.is_archived);
+    try {
+      if (note.is_archived) {
+        console.log('Unarchiving note...');
+        await this.noteService.updateNote(note.id, { is_archived: false });
+      } else {
+        console.log('Archiving note...');
+        await this.noteService.archiveNote(note.id);
+      }
+      console.log('Archive toggle completed');
+    } catch (error) {
+      console.error('Error toggling archive:', error);
     }
   }
 
