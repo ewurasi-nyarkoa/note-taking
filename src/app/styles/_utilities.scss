@@ -1,0 +1,35 @@
+
+.m-0 { margin: $spacing-0; }
+.m-100 { margin: $spacing-100; }
+.m-150 { margin: $spacing-150; }
+.m-200 { margin: $spacing-200; }
+.m-300 { margin: $spacing-300; }
+
+.p-0 { padding: $spacing-0; }
+.p-100 { padding: $spacing-100; }
+.p-150 { padding: $spacing-150; }
+.p-200 { padding: $spacing-200; }
+.p-300 { padding: $spacing-300; }
+
+.m-t-100 { margin-top: $spacing-100; }
+.m-t-200 { margin-top: $spacing-200; }
+.m-b-100 { margin-bottom: $spacing-100; }
+.m-b-200 { margin-bottom: $spacing-200; }
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+
+.flex-column { flex-direction: column; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+
+.bg-primary { background-color: var(--bg-primary); }
+.bg-secondary { background-color: var(--bg-secondary); }
+
+.border { border: 1px solid var(--border-color); }
+.border-radius { border-radius: $spacing-100; }
+
+.shadow { box-shadow: 0 2px 4px var(--shadow-color); }
+.shadow-lg { box-shadow: 0 4px 8px var(--shadow-color-strong); }

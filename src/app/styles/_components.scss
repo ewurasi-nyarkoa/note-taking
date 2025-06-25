@@ -1,0 +1,113 @@
+
+.note-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-100;
+  color: var(--text-primary);
+  padding: $spacing-200;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 8px var(--shadow-color-strong);
+    transform: translateY(-1px);
+  }
+}
+.sidebar {
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  padding: $spacing-200;
+  min-height: 100vh;
+}
+
+.theme-settings {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-100;
+  color: var(--text-primary);
+  padding: $spacing-300;
+}
+
+.btn {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: $spacing-075;
+  padding: $spacing-100 $spacing-200;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  &.btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+  }
+
+  &.btn-ghost {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color-light);
+  }
+}
+
+.form-input {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-075;
+  color: var(--text-primary);
+  padding: $spacing-100 $spacing-150;
+  font-size: $font-size-sm;
+  width: 100%;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-color-light);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
+}
+
+
+.card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-100;
+  padding: $spacing-200;
+  box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+
+.alert {
+  padding: $spacing-150;
+  border-radius: $spacing-075;
+  margin-bottom: $spacing-200;
+
+  &.alert-success {
+    background-color: var(--success-color-light);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+  }
+
+  &.alert-error {
+    background-color: var(--error-color-light);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+  }
+
+  &.alert-info {
+    background-color: var(--accent-color-light);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+  }
+}
