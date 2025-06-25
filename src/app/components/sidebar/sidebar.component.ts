@@ -1,10 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ThemeSettingsComponent } from '../theme-settings/theme-settings.component';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ThemeSettingsComponent],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

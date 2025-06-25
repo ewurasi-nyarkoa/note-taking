@@ -1,0 +1,39 @@
+<div class="theme-settings">
+  <h3>Theme Settings</h3>
+  
+  <div class="setting-group">
+    <label>Color Theme:</label>
+    <div class="options">
+      <button 
+        (click)="onColorThemeChange('light')"
+        [class.active]="preferences.colorTheme === 'light'"
+        class="theme-btn">Light</button>
+      <button 
+        (click)="onColorThemeChange('dark')"
+        [class.active]="preferences.colorTheme === 'dark'"
+        class="theme-btn">Dark</button>
+      <button 
+        (click)="onColorThemeChange('custom')"
+        [class.active]="preferences.colorTheme === 'custom'"
+        class="theme-btn">Custom</button>
+    </div>
+  </div>
+  
+  <div class="setting-group">
+    <label>Font Theme:</label>
+    <div class="options">
+      <button 
+        (click)="onFontThemeChange('sans-serif')"
+        [class.active]="preferences.fontTheme === 'sans-serif'"
+        class="font-btn font-sans">Sans Serif</button>
+      <button 
+        (click)="onFontThemeChange('serif')"
+        [class.active]="preferences.fontTheme === 'serif'"
+        class="font-btn font-serif">Serif</button>
+      <button 
+        (click)="onFontThemeChange('monospace')"
+        [class.active]="preferences.fontTheme === 'monospace'"
+        class="font-btn font-mono">Monospace</button>
+    </div>
+  </div>
+</div>
