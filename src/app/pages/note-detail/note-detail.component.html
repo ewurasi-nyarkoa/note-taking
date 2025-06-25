@@ -1,1 +1,47 @@
-<p>note-detail works!</p>
+<div class="note-detail-page">
+  <app-sidebar 
+    [tags]="allTags" 
+    (tagSelected)="onTagFilter($event)">
+  </app-sidebar>
+  
+  <main class="main-content">
+    <div class="note-detail" *ngIf="!isLoading && note">
+      <div class="detail-header">
+        <button (click)="goBack()" class="back-btn">← Back</button>
+        <div class="actions">
+          <button (click)="editNote()" class="btn-primary">Edit</button>
+          <button (click)="toggleArchive()" class="btn-secondary">
+            {{ note.is_archived ? 'Unarchive' : 'Archive' }}
+          </button>
+          <button (click)="deleteNote()" class="btn-danger">Delete</button>
+        </div>
+      </div>
+
+      <div class="note-content">
+        <h1 class="note-title">{{ note.title }}</h1>
+        
+        <div class="note-meta">
+          <span class="date">Created: {{ note.created_at | date:'medium' }}</span>
+          <span class="date" *ngIf="note.updated_at">Updated: {{ note.updated_at | date:'medium' }}</span>
+        </div>
+        
+        <div class="tags" *ngIf="note.tags.length > 0">
+          <span *ngFor="let tag of note.tags" class="tag">{{ tag }}</span>
+        </div>
+        
+        <div class="content-text">
+          {{ note.content }}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">
+      Loading...
+    </div>
+
+    <div *ngIf="!isLoading && !note" class="not-found">
+      <h2>Note not found</h2>
+      <button (click)="goBack()" class="btn-primary">Go Back</button>
+    </div>
+  </main>
+</div>
