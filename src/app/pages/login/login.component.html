@@ -1,35 +1,54 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h2>{{ isSignUp ? 'Sign Up' : 'Sign In' }}</h2>
+    <div class="logo-section">
+      <img src="/assetsimages/logo.png" alt="Logo" class="logo">
+      <!-- <h1 class="app-title">NoteTaking</h1> -->
+    </div>
     
-    <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+    <div class="auth-header">
+      <h2>{{ isSignUp ? 'Create Account' : 'Welcome Back' }}</h2>
+      <p class="subtitle">{{ isSignUp ? 'Sign up to get started' : 'Sign in to your account' }}</p>
+    </div>
+    
+    <form (ngSubmit)="onSubmit()" #authForm="ngForm" class="auth-form">
       <div class="form-group">
+        <label for="email">Email</label>
         <input 
+          id="email"
           type="email" 
           [(ngModel)]="email" 
           name="email"
-          placeholder="Email"
-          required>
+          placeholder="Enter your email"
+          required
+          class="form-input">
       </div>
       
       <div class="form-group">
+        <label for="password">Password</label>
         <input 
+          id="password"
           type="password" 
           [(ngModel)]="password" 
           name="password"
-          placeholder="Password"
-          required>
+          placeholder="Enter your password"
+          required
+          class="form-input">
       </div>
+      
+      <div class="error" *ngIf="error">{{ error }}</div>
       
       <button 
         type="submit" 
         [disabled]="loading || !authForm.valid"
         class="auth-btn">
-        {{ loading ? 'Loading...' : (isSignUp ? 'Sign Up' : 'Sign In') }}
+        <span *ngIf="loading" class="loading-spinner"></span>
+        {{ loading ? 'Loading...' : (isSignUp ? 'Create Account' : 'Sign In') }}
       </button>
     </form>
     
-    <div class="error" *ngIf="error">{{ error }}</div>
+    <div class="divider">
+      <!-- <span>or</span> -->
+    </div>
     
     <p class="toggle-text">
       {{ isSignUp ? 'Already have an account?' : "Don't have an account?" }}

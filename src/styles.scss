@@ -57,8 +57,8 @@
 // }
 
 
-@import 'variables';
-@import 'themes';
-@import 'base';
-@import 'utilities';
-@import 'components';
+@use 'app/styles/variables' as *;
+@use 'app/styles/theme' as *;
+@use 'app/styles/base' as *;
+@use 'app/styles/utilities' as *;
+@use 'app/styles/components' as *;
