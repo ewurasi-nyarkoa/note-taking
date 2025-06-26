@@ -51,8 +51,20 @@
   background: #e3f2fd;
 }
 
-.theme-section {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+.settings-btn {
+  background: none;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background: var(--accent-color-light);
+    color: var(--accent-color);
+    transform: translateY(-1px);
+  }
 }

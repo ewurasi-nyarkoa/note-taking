@@ -8,6 +8,7 @@ import { SupabaseService } from './supabase.service';
 })
 export class NoteService {
   private notesSubject = new BehaviorSubject<DatabaseNote[]>([]);
+  private selectedTagSubject = new BehaviorSubject<string>('');
 
   constructor(private supabaseService: SupabaseService) {
     this.supabaseService.testConnection();
@@ -79,5 +80,17 @@ export class NoteService {
 
   getActiveNotes(): DatabaseNote[] {
     return this.notesSubject.value.filter(note => !note.is_archived);
+  }
+
+  setSelectedTag(tag: string) {
+    this.selectedTagSubject.next(tag);
+  }
+
+  getSelectedTag(): Observable<string> {
+    return this.selectedTagSubject.asObservable();
+  }
+
+  getCurrentSelectedTag(): string {
+    return this.selectedTagSubject.value;
   }
 }

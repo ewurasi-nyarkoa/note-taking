@@ -1,0 +1,13 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.login-layout {
+  height: 100vh;
+}

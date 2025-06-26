@@ -1,20 +1,10 @@
-<div class="archived-page">
-  <app-sidebar 
-    [tags]="allTags" 
-    (tagSelected)="onTagFilter($event)">
-  </app-sidebar>
+
   
   <main class="main-content">
-    <div class="page-header">
-      <h1>Archived Notes</h1>
-      <p *ngIf="archivedNotes.length === 0" class="empty-message">
-        No archived notes found.
-      </p>
-    </div>
-    
+   
     <app-note-list 
       [notes]="archivedNotes"
       [showArchived]="true">
     </app-note-list>
   </main>
-</div>
+

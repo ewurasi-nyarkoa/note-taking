@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoteService } from '../../services/note.service';
 import { DatabaseNote } from '../../models/note.interface';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-note-detail',
-  imports: [CommonModule, SidebarComponent],
+  imports: [CommonModule],
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.scss'
 })
 export class NoteDetailComponent implements OnInit {
   note: DatabaseNote | null = null;
   isLoading = true;
-  allTags: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -32,20 +31,8 @@ export class NoteDetailComponent implements OnInit {
   loadNote(id: number) {
     this.noteService.getNotes().subscribe(notes => {
       this.note = notes.find(n => n.id === id) || null;
-      this.updateTags(notes);
-      this.isLoading = false;
+       this.isLoading = false;
     });
-  }
-
-  private updateTags(notes: DatabaseNote[]) {
-    const tagSet = new Set<string>();
-    notes.forEach(note => note.tags.forEach(tag => tagSet.add(tag)));
-    this.allTags = Array.from(tagSet);
-  }
-
-  onTagFilter(tag: string) {
-    // Navigate to dashboard with tag filter
-    this.router.navigate(['/dashboard'], { queryParams: { tag } });
   }
 
   editNote() {
