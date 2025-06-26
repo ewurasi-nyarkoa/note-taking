@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NoteService } from './services/note.service';
-import { ThemeService } from './services/theme.service';
 import { DatabaseNote } from './models/note.interface';
 import { filter } from 'rxjs/operators';
 
@@ -21,17 +20,32 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private noteService: NoteService,
-    // private themeService: ThemeService
-  ) {}
+    private noteService: NoteService
+  ) {
+ 
+    const currentUrl = window.location.href;
+    this.showSidebar = !(
+      currentUrl.endsWith('/') || 
+      currentUrl.endsWith('/login') || 
+      currentUrl.includes('/login')
+    );
+  }
 
   ngOnInit() {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.showSidebar = !event.url.includes('/login');
+      // Update sidebar visibility
+      this.showSidebar = !(
+        event.url === '/' || 
+        event.url === '/login'
+      );
+      
+      // Reload notes when navigating to dashboard
+      if (event.url === '/dashboard' || event.url === '/notes') {
+        this.noteService.loadNotes();
+      }
     });
-
    
     this.noteService.getNotes().subscribe(notes => {
       this.notes = notes;
@@ -42,12 +56,10 @@ export class AppComponent implements OnInit {
   onTagFilter(tag: string) {
     this.noteService.setSelectedTag(tag);
     
-    // If on dashboard, no need to navigate
     if (this.router.url.includes('/dashboard') || this.router.url.includes('/notes')) {
       return;
     }
     
-    // Navigate to dashboard with the selected tag
     this.router.navigate(['/dashboard']);
   }
 

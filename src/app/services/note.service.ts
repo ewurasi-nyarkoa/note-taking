@@ -15,7 +15,7 @@ export class NoteService {
     this.loadNotes();
   }
 
-  private async loadNotes() {
+  async loadNotes() {
     try {
       console.log('Loading notes...');
       const notes = await this.supabaseService.getNotes();
