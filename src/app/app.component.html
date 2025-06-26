@@ -1,2 +1,14 @@
+<div class="app-layout" *ngIf="showSidebar">
+  <app-sidebar 
+    [tags]="allTags" 
+    (tagSelected)="onTagFilter($event)">
+  </app-sidebar>
+  
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
 
-<router-outlet />
+<div class="login-layout" *ngIf="!showSidebar">
+  <router-outlet></router-outlet>
+</div>

@@ -1,22 +1,47 @@
 .dashboard {
-  display: flex;
-  height: 100vh;
+  padding: 20px;
 }
 
-.main-content {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .search-bar {
-  margin-bottom: 20px;
+width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .search-input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.settings-btn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background: var(--accent-color-light);
+    color: var(--accent-color);
+    transform: translateY(-1px);
+  }
 }

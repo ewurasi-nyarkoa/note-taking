@@ -1,9 +1,4 @@
 <div class="note-detail-page">
-  <app-sidebar 
-    [tags]="allTags" 
-    (tagSelected)="onTagFilter($event)">
-  </app-sidebar>
-  
   <main class="main-content">
     <div class="note-detail" *ngIf="!isLoading && note">
       <div class="detail-header">

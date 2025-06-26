@@ -3,17 +3,18 @@ import { CommonModule } from '@angular/common';
 import { NoteService } from '../../services/note.service';
 import { DatabaseNote } from '../../models/note.interface';
 import { NoteListComponent } from '../../components/note-list/note-list.component';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
+
 
 @Component({
   selector: 'app-archived',
-  imports: [CommonModule, NoteListComponent, SidebarComponent],
+  imports: [CommonModule, NoteListComponent],
   templateUrl: './archived.component.html',
   styleUrl: './archived.component.scss'
 })
 export class ArchivedComponent implements OnInit {
   archivedNotes: DatabaseNote[] = [];
   allTags: string[] = [];
+
 
   constructor(private noteService: NoteService) {}
 

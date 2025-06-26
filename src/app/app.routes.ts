@@ -5,6 +5,8 @@ import { NoteDetailComponent } from './pages/note-detail/note-detail.component';
 import { CreateNoteComponent } from './pages/create-note/create-note.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
+import { ThemeSettingsComponent } from './components/theme-settings/theme-settings.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,5 +16,6 @@ export const routes: Routes = [
   { path: 'archived', component: ArchivedComponent },
   { path: 'notes/:id', component: NoteDetailComponent },
   { path: 'create', component: CreateNoteComponent },
-  { path: 'edit/:id', component: NoteEditorComponent }
+  { path: 'edit/:id', component: NoteEditorComponent },
+  { path: 'settings', component: ThemeSettingsComponent }
 ];

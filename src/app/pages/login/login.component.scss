@@ -1,69 +1,207 @@
+@use '../../styles/variables' as *;
+
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #f5f5f5;
+  background: var(--bg-secondary);
+  padding: $spacing-200;
 }
 
 .auth-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-100;
+  padding: $spacing-600;
+  box-shadow: 0 4px 8px var(--shadow-color-strong);
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
 }
 
-h2 {
+.logo-section {
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
+  margin-bottom: $spacing-500;
+  
+  .logo {
+    width: 95px;
+    height: 28px;
+    // margin-bottom: $spacing-200;
+    // border-radius: $spacing-100;
+  }
+  
+  // .app-title {
+  //   font-size: $font-size-xl;
+  //   font-weight: 700;
+  //   line-height: $line-height-tight;
+  //   letter-spacing: $letter-spacing-tight;
+  //   color: var(--text-primary);
+  //   margin: 0;
+  // }
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: $spacing-500;
+  
+  h2 {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    line-height: $line-height-tight;
+    letter-spacing: $letter-spacing-tight;
+    color: var(--text-primary);
+    margin: 0 0 $spacing-100 0;
+  }
+  
+  .subtitle {
+    font-size: $font-size-sm;
+    font-weight: 400;
+    line-height: $line-height-tight;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+.auth-form {
+  margin-bottom: $spacing-400;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: $spacing-300;
+  
+  label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: $spacing-100;
+  }
 }
 
-input {
+.form-input {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $spacing-075;
+  color: var(--text-primary);
+  padding: $spacing-200;
+  font-size: $font-size-sm;
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-color-light);
+  }
+
+  &::placeholder {
+    color: var(--text-tertiary);
+  }
 }
 
 .auth-btn {
-  width: 100%;
-  padding: 0.75rem;
-  background: #007bff;
-  color: white;
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: $spacing-075;
+  padding: $spacing-200;
+  font-size: $font-size-base;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-100;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background-color: var(--text-tertiary);
+    cursor: not-allowed;
+    transform: none;
+  }
 }
 
-.auth-btn:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .error {
-  color: #dc3545;
+  padding: $spacing-150;
+  border-radius: $spacing-075;
+  margin-bottom: $spacing-200;
+  background-color: var(--error-color-light);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
   text-align: center;
-  margin: 1rem 0;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: $spacing-400 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border-color);
+  }
+  
+//   span {
+//     background: var(--bg-primary);
+//     padding: 0 $spacing-200;
+//     font-size: $font-size-xs;
+//     color: var(--text-tertiary);
+//   }
 }
 
 .toggle-text {
   text-align: center;
-  margin-top: 1rem;
+  font-size: $font-size-sm;
+  color: var(--text-secondary);
+  margin-top: 45px;
 }
 
 .toggle-btn {
   background: none;
   border: none;
-  color: #007bff;
+  color: var(--accent-color);
+  font-size: $font-size-sm;
+  font-weight: 500;
   cursor: pointer;
-  text-decoration: underline;
+  margin-left: $spacing-050;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@include respond-to(sm) {
+  .auth-container {
+    padding: $spacing-400;
+  }
+  
+  .auth-card {
+    padding: $spacing-800;
+  }
 }
